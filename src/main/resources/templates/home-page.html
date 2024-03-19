@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+<body>
+
+    <h2>Home Page</h2>
+
+    <hr>
+    <p>
+        Welcome to Soft Touch Yarn's home page :)
+    </p>
+
+    <hr>
+    <br>
+
+    <!-- display username and role -->
+
+    <p>
+        User email: <span sec:authentication="principal.username"></span>
+        <br><br>
+        Role(s): <span sec:authentication="principal.authorities"></span>
+    </p>
+
+    <br>
+    <hr>
+
+    <!-- add a link to point to /admin ... this is for Admin -->
+    <!-- this link is only visible to Admin -->
+
+    <div sec:authorize="hasRole('ADMIN')">
+        <p>
+            <a th:href="@{/admin}">for Admin</a>
+        </p>
+    </div>
+
+    <br>
+
+    <!-- Logout button -->
+    <form action="#" th:action="@{/logout}" method="POST">
+
+        <input type="submit" value="Logout" />
+    </form>
+
+</body>
+</html>
