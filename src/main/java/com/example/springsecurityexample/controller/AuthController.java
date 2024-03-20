@@ -47,26 +47,26 @@ public class AuthController {
 
     @PostMapping("/register/save")
     public String registration(@Valid @ModelAttribute("userDto") UserDto userDto,
-                               BindingResult bindingResult,
+                               BindingResult theBindingResult,
                                Model model) {
-        // form validation
-        if (bindingResult.hasErrors()) {
+        /*
+        if(theBindingResult.hasErrors()){
+            //model.addAttribute("userDto", userDto);
             return "/register";
         }
 
         //check the database if user already exists
 
+         */
+
         Optional<User> savedUser = userService.findUserByEmail(userDto.getEmail());
 
-        if(savedUser.isPresent()){
-            model.addAttribute("webUser", new UserDto());
-            model.addAttribute("registrationError", "Email already exists!");
-            return "/register";
+        if(!theBindingResult.hasErrors() && savedUser.isPresent()) {
+            theBindingResult.rejectValue("email", "error.email", " email already exists!");
         }
 
-        if(bindingResult.hasErrors()){
-            model.addAttribute("userDto", userDto);
-            return "/register";
+        if(theBindingResult.hasErrors()){
+            return "register";
         }
 
         userService.saveUser(userDto);

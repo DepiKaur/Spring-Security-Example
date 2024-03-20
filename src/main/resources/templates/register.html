@@ -22,9 +22,11 @@
         <!-- Check for successful registration -->
         <div th:if="${param.success}">
             <div class="pass">
-                <i>!!  Registration Successful  !!</i>
+                <i><b>!! Registration successful !!</b></i>
             </div>
         </div>
+
+        <br>
 
         First name (*): <input type="text" th:field="*{firstName}" />
 
@@ -44,16 +46,7 @@
 
         <br><br>
 
-        <!-- Error message if email already present -->
-
-        <div th:if="${param.registrationError}">
-                <span th:text="${param.registrationError}"
-                      class="error"></span>
-        </div>
-
-        <br>
-
-        User Email (*): <input type="email" th:field="*{email}"/>
+        User email (*): <input type="email" th:field="*{email}"/>
 
         <!-- Add error message (if present) -->
         <span th:if="${#fields.hasErrors('email')}"
@@ -69,13 +62,12 @@
               th:errors="*{password}"
               class="error"></span>
 
-        <br><br>
-        <hr>
-        <br>
+        <br><br><br>
 
         <div>
             <button type="submit">Register</button>
-            <br><br>
+            <hr>
+            <br>
             <span>Already registered? <a th:href="@{/login}">Login here</a></span>
         </div>
 
