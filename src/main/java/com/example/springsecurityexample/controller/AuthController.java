@@ -4,14 +4,18 @@ import com.example.springsecurityexample.dto.UserDto;
 import com.example.springsecurityexample.entity.User;
 import com.example.springsecurityexample.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Depinder Kaur
@@ -45,20 +49,37 @@ public class AuthController {
     public String registration(@Valid @ModelAttribute("userDto") UserDto userDto,
                                BindingResult bindingResult,
                                Model model) {
-        User existingUser = userService.findUserByEmail(userDto.getEmail());
+        // form validation
+        if (bindingResult.hasErrors()) {
+            return "/register";
+        }
 
-        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
-            bindingResult.rejectValue("email", null,
-                    "There is already an account registered with the same email");
+        //check the database if user already exists
+
+        Optional<User> savedUser = userService.findUserByEmail(userDto.getEmail());
+
+        if(savedUser.isPresent()){
+            model.addAttribute("webUser", new UserDto());
+            model.addAttribute("registrationError", "Email already exists!");
+            return "/register";
         }
 
         if(bindingResult.hasErrors()){
-            model.addAttribute("user", userDto);
+            model.addAttribute("userDto", userDto);
             return "/register";
         }
 
         userService.saveUser(userDto);
         return "redirect:/register?success";
+    }
+
+    // add an InitBinder ... to convert trim input strings
+    // remove leading and trailing whitespace
+    // resolve issue for our validation
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder) {
+        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+        dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
     }
 
     @GetMapping("/usersList")

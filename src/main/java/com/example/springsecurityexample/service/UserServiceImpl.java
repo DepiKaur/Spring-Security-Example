@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -51,16 +52,16 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findUserByEmail(String email) {
-        return userRepository.findById(email).get();
+    public Optional<User> findUserByEmail(String email) {
+        return userRepository.findById(email);
     }
 
     @Override
     public List<UserDto> findAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream()
-                .map((user) -> mapToUserDto(user))
-                .collect(Collectors.toList());
+                    .map((user) -> mapToUserDto(user))
+                    .collect(Collectors.toList());
     }
 
     private UserDto mapToUserDto(User user){

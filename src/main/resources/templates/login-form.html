@@ -11,7 +11,7 @@
 <body>
 <h2>Sign Up</h2>
 
-<form action="#" th:action="@{/authenticateTheUser}" method="POST">
+<form th:action="@{/authenticateTheUser}" method="POST">
 
     <!-- Check for login error -->
     <div th:if="${param.error}">
@@ -43,7 +43,7 @@
 </form>
 
 <span> Not registered ?
-    <a th:href="@{/register}">Register/Signup here</a>
+    <a th:href="@{/register}">Register</a>
 </span>
 
 </body>

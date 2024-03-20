@@ -5,21 +5,26 @@
     <meta charset="UTF-8">
     <title>Customer Registration</title>
     <style>
-      .pass {color:green}
+        .error {
+            font-style:italic;
+            color:red;
+        }
+        .pass {color:green}
     </style>
 </head>
 <body>
 <h2>Customer Registration</h2>
     <hr>
 
-    <form action="#" th:action="@{/register/save}" th:object="${userDto} method="POST">
+    <form th:action="@{/register/save}" th:object="${userDto}" method="POST">
+        <br>
 
         <!-- Check for successful registration -->
         <div th:if="${param.success}">
             <div class="pass">
-                <i>Registration Successful</i>
+                <i>!!  Registration Successful  !!</i>
             </div>
-          </div>
+        </div>
 
         First name (*): <input type="text" th:field="*{firstName}" />
 
@@ -39,6 +44,8 @@
 
         <br><br>
 
+        <!-- Error message if email already present -->
+
         <div th:if="${param.registrationError}">
                 <span th:text="${param.registrationError}"
                       class="error"></span>
@@ -46,7 +53,7 @@
 
         <br>
 
-        Email (*): <input type="email" th:field="*{email}"/>
+        User Email (*): <input type="email" th:field="*{email}"/>
 
         <!-- Add error message (if present) -->
         <span th:if="${#fields.hasErrors('email')}"
@@ -63,15 +70,12 @@
               class="error"></span>
 
         <br><br>
-        <input type="submit" value="Submit" />
         <hr>
         <br>
 
-        <div class="form-group">
+        <div>
             <button type="submit">Register</button>
-
-            <br>
-
+            <br><br>
             <span>Already registered? <a th:href="@{/login}">Login here</a></span>
         </div>
 

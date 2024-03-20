@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * @author Depinder Kaur
@@ -51,12 +52,14 @@ public class SecurityConfiguration {
                 )
                 .formLogin(
                         form -> form
-                                .loginPage("/showLoginForm")
+                                .loginPage("/login")
                                 .loginProcessingUrl("/authenticateTheUser")
+                                .defaultSuccessUrl("/usersList")
                                 .permitAll()
                 )
                 .logout(
                         logout -> logout
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .permitAll()
                                 .logoutSuccessUrl("/")
                 )

@@ -4,6 +4,7 @@ import com.example.springsecurityexample.dto.UserDto;
 import com.example.springsecurityexample.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Depinder Kaur
@@ -14,7 +15,7 @@ public interface UserService {
 
     void saveUser(UserDto userDto);
 
-    User findUserByEmail(String email);
+    Optional<User> findUserByEmail(String email);
 
     List<UserDto> findAllUsers();
 }
