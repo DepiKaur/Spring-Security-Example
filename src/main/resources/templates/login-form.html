@@ -10,6 +10,7 @@
 </head>
 <body>
 <h2>Sign Up</h2>
+<hr>
 
 <form th:action="@{/authenticateTheUser}" method="POST">
 
@@ -29,7 +30,7 @@
 
     <!-- user name -->
     <p>
-        Email: <input type="email" name="username" />
+        User email: <input type="email" name="username" />
     </p>
 
     <!-- password -->
@@ -41,9 +42,11 @@
     <input type="submit" value="Login" />
 
 </form>
-
+<br>
+<hr>
+<br>
 <span> Not registered ?
-    <a th:href="@{/register}">Register</a>
+    <a th:href="@{/register}">Register here</a>
 </span>
 
 </body>
