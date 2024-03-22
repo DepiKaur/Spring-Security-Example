@@ -19,16 +19,17 @@ import java.util.Optional;
 
 /**
  * @author Depinder Kaur
- * @version <h2></h2>
+ * @version 0.1
+ * <h2>RegistrationController</h2>
  * @date 2024-03-19
  */
 
 @Controller
-public class AuthController {
+public class RegistrationController {
 
     private UserService userService;
 
-    public AuthController(UserService userService) {
+    public RegistrationController(UserService userService) {
         this.userService = userService;
     }
 
@@ -91,7 +92,7 @@ public class AuthController {
 
     @GetMapping("/customers")
     public String showHomePage() {
-        return "home-page";
+        return "index";
     }
 
     // add mapping for /admin

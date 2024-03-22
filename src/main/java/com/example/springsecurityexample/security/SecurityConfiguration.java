@@ -43,6 +43,8 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(
                 authorize -> authorize
                             .requestMatchers("/").permitAll()
+                            .requestMatchers("/css/**").permitAll()
+                            .requestMatchers("/images/**").permitAll()
                             .requestMatchers("/register/**").permitAll()
                             .requestMatchers("/index").permitAll()
                             .requestMatchers("/user/**").hasRole("CUSTOMER")
@@ -54,7 +56,7 @@ public class SecurityConfiguration {
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/authenticateTheUser")
-                                .defaultSuccessUrl("/usersList")
+                                .defaultSuccessUrl("/success", true)
                                 .permitAll()
                 )
                 .logout(

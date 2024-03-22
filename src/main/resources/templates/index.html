@@ -1,28 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Soft Touch Yarn Co.</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
 </head>
-<body>
+<body id="background">
+    <div class="index">
+        <h2 id="header" th:align="center">Soft Touch Yarn Co.</h2>
 
-<h2>Soft Touch Yarn Co.</h2>
-<hr>
-<br>
-<p>
-  Welcome to the landing page! This page is open to the public ... no
-  login required :-)
-</p>
-<br>
-<hr>
+        <div id="foto">
+            <img src="../static/images/colorful-yarn-balls.jpg"  th:src="@{/images/colorful-yarn-balls.jpg}"
+                 alt="Colorful yarn balls stacked together" style="width:700px;height:500px;"/>
+            <br><br>
+            <a class="bluebutton" th:href="@{/register}">Register</a>
 
-<p>
-  <a th:href="@{/register}">Register</a>
-</p>
-<p>
-    <a th:href="@{/login}">Login</a>
-</p>
-
+            <br><br>
+            <a class="greenbutton" th:href="@{/login}">Login</a>
+        </div>
+    </div>
 </body>
+
 </html>
